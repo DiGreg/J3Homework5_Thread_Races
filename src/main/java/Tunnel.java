@@ -15,22 +15,18 @@ public class Tunnel extends Stage {
     //переопределение метода "go" ("проедь") для тоннеля
     @Override
     public void go (Car car){
-        //try{
-            try{
-                System.out.println(car.getName() + " готовится к этапу (ждёт): " + description);
-                semaphore.acquire();//запускаю семафор
+        try{
+            System.out.println(car.getName() + " готовится к этапу (ждёт): " + description);
+            semaphore.acquire();//запускаю семафор
 
-                System.out.println(car.getName() + " начал этап: " + description);
-                Thread.sleep(length / car.getSpeed() * 1000);
+            System.out.println(car.getName() + " начал этап: " + description);
+            Thread.sleep(length / car.getSpeed() * 1000);
 
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            } finally {
-                System.out.println(car.getName() + " закончил этап: " + description);
-                semaphore.release();//освобождаю поток - в тоннеле появилось место для ожидающей машины
-            }
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } finally {
+            System.out.println(car.getName() + " закончил этап: " + description);
+            semaphore.release();//освобождаю поток - в тоннеле появилось место для ожидающей машины
+        }
     }
 }
